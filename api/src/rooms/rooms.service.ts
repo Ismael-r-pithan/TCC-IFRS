@@ -48,6 +48,9 @@ export class RoomsService {
       },
       relations: ['quizzes']
     });
+    if (!rooms) {
+      throw new NotFoundException('Turma não encontrada');
+    }
     return rooms.quizzes.map((quiz) => this.quizMapper.toResponse(quiz));
   }
 

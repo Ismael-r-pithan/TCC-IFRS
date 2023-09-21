@@ -23,7 +23,7 @@ export class UsersService {
     const userExists = await this.userRepository.findOne({
       where: [
         { email: createUserDto.email },
-        { username: createUserDto.username },
+        { username: createUserDto.username }
       ]
     });
 
@@ -44,7 +44,9 @@ export class UsersService {
   }
 
   findAll() {
-    return this.userRepository.find();
+    return this.userRepository.find({
+      select: ['id', 'email', 'avatar', 'username']
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

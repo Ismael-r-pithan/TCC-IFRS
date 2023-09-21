@@ -70,38 +70,6 @@ export class QuizFeedback1683765993586 implements MigrationInterface {
             default: 'now()',
             isNullable: false
           }
-          // {
-          //   name: 'id',
-          //   type: 'varchar',
-          //   isPrimary: true
-          // },
-          // {
-          //   name: 'quiz_codigo',
-          //   type: 'varchar',
-          //   isNullable: false
-          // },
-          // {
-          //   name: 'student_id',
-          //   type: 'varchar',
-          //   isNullable: false
-          // },
-          // {
-          //   name: 'score',
-          //   type: 'int',
-          //   isNullable: false
-          // },
-          // {
-          //   name: 'created_at',
-          //   type: 'timestamp',
-          //   default: 'now()',
-          //   isNullable: false
-          // },
-          // {
-          //   name: 'updated_at',
-          //   type: 'timestamp',
-          //   default: 'now()',
-          //   isNullable: false
-          // }
         ]
       })
     );
