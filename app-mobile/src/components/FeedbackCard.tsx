@@ -1,16 +1,25 @@
 import { HStack, Text, VStack } from "native-base";
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
-import { FeedbackDTO } from "@dtos/FeedbackDto";
+import { QuizFeedback } from "@dtos/FeedbackDto";
 
 type Props = TouchableOpacityProps & {
-    data: FeedbackDTO
+    data: QuizFeedback
 };
 
 export function FeedbackCard({data, ...props}: Props) {
     return (
         <TouchableOpacity {...props} >
-            <HStack flexDirection={"column"}  width={80} bg={data.questionAnswer == data.studentAnswer ? "green.800" : "red.800"} alignItems="center" justifyContent="space-between" p={2} pr={4} rounded="md" mb={8}>
-
+            <HStack 
+                flexDirection={"column"}  
+                width={80} 
+                bg={data.questionAnswer == data.studentAnswer ? "green.800" : "red.800"} 
+                alignItems="center" 
+                justifyContent="space-between" 
+                p={2} 
+                pr={4} 
+                rounded="md"
+                mb={8}
+            >
             <Text color="white" mb={4} fontSize="md" fontWeight="extrabold">
             {data.description}
             </Text>

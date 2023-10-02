@@ -13,15 +13,19 @@ import { useEffect, useState } from "react";
 export function ListRoom() {
   const [rooms, setRooms] = useState<RoomDTO[]>([]);
   const toast = useToast();
+  const [action, setAction] = useState(false);
   const navigation = useNavigation<PrivateNavigatorRoutesProps>();
+
 
   function handleListQuizzes(roomId: string) {
     return navigation.navigate("list_quizzes", { roomId: roomId });
   }
 
   function handleGoBack() {
-    return navigation.navigate('home');
+    return navigation.navigate('educator');
   }
+
+  const onRemove = () => setAction(!action);
 
   async function listRooms() {
     try {
@@ -39,35 +43,63 @@ export function ListRoom() {
       });
     }
   }
+
+  async function handleDelete(roomId: string) {
+    try {
+      await httpClient.delete(`/rooms/${roomId}`);
+      onRemove()
+      toast.show({
+        title: 'Turma Removida Com Sucesso',
+        backgroundColor: "green.500",
+        placement: "top"
+      })
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+      const title = isAppError
+        ? error.message
+        : "Não foi possível excluir a turma no momento, tente novamente mais tarde";
+      toast.show({
+        title,
+        placement: "top",
+        bgColor: "red.500",
+      });
+    }
+  }
+
+  function handleEdit(roomId: string, roomName: string) {
+    navigation.navigate('create_room', { roomId, roomName });
+  }
+
   useFocusEffect(
     React.useCallback(() => {
       listRooms();
-    }, [])
+    }, [action])
   );
 
   return (
-    <VStack flex={1}>
+    <VStack alignItems={"center"} flex={1}>
       <HomeHeader />
-      <Center my={16} px={10} justifyContent="space-between" flex={1}>
-      <>
-        <Heading color={"gray.100"} mb={6} fontSize={"lg"}>Minhas Turmas</Heading>
+        <Heading color={"gray.100"} mb={6} mt={6} fontSize={"lg"}>Minhas Turmas</Heading>
         <FlatList
           data={rooms}
           renderItem={({ item }) => (
-            <RoomCard onPress={() => handleListQuizzes(item.id)} data={item} />
+            <RoomCard 
+              onPress={() => handleListQuizzes(item.id)} 
+              data={item} 
+              onDelete={() => handleDelete(item.id)} 
+              onEdit={() => handleEdit(item.id, item.name)} 
+            />
           )}
           showsVerticalScrollIndicator={false}
-          _contentContainerStyle={{
-            paddingBottom: 20,
-          }}
         />
-      </>
         <Button
             title="Voltar"
             backgroundColor="green.800"
             onPress={handleGoBack}
+            mt={4}
+            mb={4}
+            w={80}
           />
-      </Center>
     </VStack>
   );
 }

@@ -5,7 +5,9 @@ import {
   Body,
   UseGuards,
   Request,
-  Param
+  Param,
+  Patch,
+  Delete
 } from '@nestjs/common';
 import { RoomsService } from './rooms.service';
 import { CreateRoomDto } from './dto/create-room.dto';
@@ -17,6 +19,7 @@ import { QuizService } from 'src/quiz/quiz.service';
 import { PayloadTokenDto } from 'src/auth/dto/payload-token.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { QuizFeedbackService } from 'src/quiz-feedback/quiz-feedback.service';
+import { UpdateRoomDto } from './dto/update-room.dto';
 
 @Controller({ path: 'rooms', version: '1' })
 @ApiTags('Rooms')
@@ -72,5 +75,20 @@ export class RoomsController {
     const tokenPayload: PayloadTokenDto =
       await this.authService.getUserFromToken(token);
     return this.roomsService.findAll(tokenPayload);
+  }
+
+  @Patch(':room_id')
+  @UseGuards(AuthGuard('jwt'))
+  updateRoom(
+    @Param('room_id') id: string,
+    @Body() updateRoomDto: UpdateRoomDto
+  ) {
+    return this.roomsService.update(id, updateRoomDto);
+  }
+
+  @Delete(':room_id')
+  @UseGuards(AuthGuard('jwt'))
+  deleteRoom(@Param('room_id') id: string) {
+    return this.roomsService.delete(id);
   }
 }

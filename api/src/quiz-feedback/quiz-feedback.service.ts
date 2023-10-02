@@ -26,7 +26,7 @@ export class QuizFeedbackService {
     payloadToken: PayloadTokenDto
   ) {
     const quiz = await this.quizService.getQuizOrException(codigoQuiz);
-    const user = await this.userService.getUserOrException(payloadToken.sub);
+    const user = await this.userService.findOne(payloadToken.sub);
 
     if (createQuizFeedbackDto.quizAnswers.length !== quiz.questions.length) {
       throw new BadRequestException('Faltou responder questões');

@@ -10,16 +10,19 @@ import { RoomsService } from 'src/rooms/rooms.service';
 import { UsersService } from 'src/users/users.service';
 import { Room } from 'src/rooms/entities/room.entity';
 import { User } from 'src/users/entities/user.entity';
+import { AuthService } from 'src/auth/auth.service';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Questions, Quiz, Room, User])],
+  imports: [TypeOrmModule.forFeature([Questions, Quiz, Room, User]), JwtModule],
   providers: [
     QuestionsService,
     QuestionMapper,
     QuizService,
     QuizMapper,
     RoomsService,
-    UsersService
+    UsersService,
+    AuthService
   ],
   exports: [QuestionMapper]
 })

@@ -5,10 +5,13 @@ import { UserPhoto } from "./UserPhoto";
 import { useAuth } from "@hooks/useAuth";
 
 import avatarDefault from "@assets/avatarDefault.png";
+import React, { useEffect } from "react";
 
 
 export function HomeHeader() {
     const { user, signOut } = useAuth();
+
+
     return (
         <HStack background="green.900" pt={16} pb={5} px={8} alignItems="center">
             <UserPhoto

@@ -16,7 +16,6 @@ type SignInProps = {
     password: string;
 }
 
-
 export function SignIn() {
 
     const { signIn } = useAuth();
@@ -33,6 +32,7 @@ export function SignIn() {
 
     async function handleSignIn({ email, password }: SignInProps) {
         try {
+            
             setIsLoading(true);
             await signIn(email, password);
         } catch (error) {

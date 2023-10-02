@@ -2,7 +2,7 @@ import axios from "axios";
 import { AppError } from '@shared/AppError';
 
 const httpClient = axios.create({
-    baseURL: "http://192.168.2.114:3001/api/v1",
+    baseURL: "http://192.168.2.102:3001/api/v1",
     timeout: 5000
 });
 

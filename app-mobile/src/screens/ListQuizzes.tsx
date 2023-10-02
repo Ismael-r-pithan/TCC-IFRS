@@ -53,6 +53,14 @@ export function ListQuizzes() {
     }
   }
 
+  async function handleDelete() {
+    console.log('DELETE');
+  }
+
+  async function handleEdit() {
+    console.log('EDIT');
+  }
+
   useFocusEffect(
     React.useCallback(() => {
       listQuizzes(roomId);
@@ -79,7 +87,10 @@ export function ListQuizzes() {
           <QuizCard
             key={item.codigo}
             data={item}
-            onPress={() => handleListStudents(roomId, item.codigo)}
+            variant="EDUCATOR"
+            onPress={() => handleListStudents(roomId, item.codigo)} 
+            onDelete={handleDelete}
+            onEdit={handleEdit}
           />
         ))}
          </ScrollView>

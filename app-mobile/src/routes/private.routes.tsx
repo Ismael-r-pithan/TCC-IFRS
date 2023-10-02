@@ -4,7 +4,7 @@ import {
 } from "@react-navigation/bottom-tabs";
 import { useTheme } from "native-base";
 
-import { Home } from "@screens/Home";
+import { EducatorScreen } from "@screens/Educator";
 import { Profile } from "@screens/Profile";
 import { Quiz } from "@screens/Quiz";
 import { CreateRoom } from "@screens/CreateRoom";
@@ -15,19 +15,22 @@ import ProfileSvg from "@assets/profile.svg";
 import { ListRoom } from "@screens/ListRoom";
 import { CreateQuiz } from "@screens/CreateQuiz";
 import { CreateQuestion } from "@screens/CreateQuestion";
-import { GeneralFeedback } from "@screens/GeneralFeedback";
+import { Home } from "@screens/Home";
 import { FeedbackQuiz } from "@screens/FeedbackQuiz";
 import { FeedbackRooms } from "@screens/FeedbackRooms";
 import { ListQuizzes } from "@screens/ListQuizzes";
 import { FeedbackStudents } from "@screens/FeedbackStudents";
 import { ListStudents } from "@screens/ListStudents";
+import { StudentScreen } from "@screens/Student";
 
 export type PrivateRoutes = {
   home: undefined;
   quiz: { codigoQuiz: string };
   profile: undefined;
+  educator: undefined;
+  student: undefined;
 
-  create_room: undefined;
+  create_room: { roomId?: string, roomName?: string };
   create_quiz: { roomId: string };
   create_question: { codigoQuiz: string, roomId: string };
 
@@ -75,7 +78,7 @@ export function PrivateRoutes() {
       />
       <Screen
         name="feedback"
-        component={GeneralFeedback}
+        component={FeedbackStudents}
         options={{
           tabBarIcon: ({ color }) => (
             <HistorySvg fill={color} width={iconSize} height={iconSize} />
@@ -101,6 +104,20 @@ export function PrivateRoutes() {
       <Screen
         name="list_room"
         component={ListRoom}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
+      <Screen
+        name="educator"
+        component={EducatorScreen}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
+       <Screen
+        name="student"
+        component={StudentScreen}
         options={{
           tabBarButton: () => null,
         }}
@@ -147,13 +164,13 @@ export function PrivateRoutes() {
           tabBarButton: () => null,
         }}
       />
-      <Screen
+      {/* <Screen
         name="feedback_rooms"
         component={FeedbackRooms}
         options={{
           tabBarButton: () => null,
         }}
-      />
+      /> */}
       <Screen
         name="feedback_students"
         component={FeedbackStudents}

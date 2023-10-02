@@ -14,7 +14,7 @@ export function Button({ title, variant = 'solid', ...props}: Props) {
             backgroundColor={variant === "outline" ? "gray.500" : "green.600"}
             background={variant === "outline" ? "gray.500" : "green.800"}
             borderWidth={variant === "outline" ? 1 : 0}
-            borderColor="green.900"
+            borderColor="green.800"
             _pressed={{
                 backgroundColor: variant === "outline" ? "gray.800" : "green.600",
                 background: variant === "outline" ? "gray.800" : "green.600"

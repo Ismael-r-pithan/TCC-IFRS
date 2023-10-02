@@ -20,7 +20,7 @@ type FeedbackQuizRouteProp = RouteProp<PrivateRoutes, "feedback_quiz"> & {
 
 export function FeedbackQuiz() {
   const route = useRoute<FeedbackQuizRouteProp>();
-  const [feedbacks, setFeedbacks] = useState<FeedbackDTO[]>([]);
+  const [feedbacks, setFeedbacks] = useState<FeedbackDTO>([]);
   const toast = useToast();
   const { codigoQuiz, studentId, roomId } = route.params;
   const navigation = useNavigation<PrivateNavigatorRoutesProps>();
@@ -47,6 +47,9 @@ export function FeedbackQuiz() {
   }, [codigoQuiz]);
 
   function handleGoBack() {
+    if (!roomId) {
+      return navigation.navigate("feedback_students");
+    }
     return navigation.navigate("list_students", { codigoQuiz: codigoQuiz, roomId: roomId });
   }
   
@@ -55,14 +58,15 @@ export function FeedbackQuiz() {
         <HomeHeader />
         <Center my={16} px={10} flex={1}>
         <Heading color={"gray.100"} mb={6} fontSize={"lg"}>Feedback Do Quiz</Heading>
+        <Text color={"gray.100"} fontSize={"md"}>ACERTOS: {feedbacks.totalCorrectAnswer}</Text>
+        <Text color={"gray.100"} fontSize={"md"} mb={8}>ERROS: {feedbacks.totalWrongAnswers}</Text>
           <FlatList
-            data={feedbacks}
+            data={feedbacks.quizFeedback as []}
             renderItem={({ item }) => (
               <FeedbackCard data={item} />
             )}
             showsVerticalScrollIndicator={false}
             _contentContainerStyle={{
-              paddingBottom: 10,
             }}
           />
           

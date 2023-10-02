@@ -37,21 +37,21 @@ export class AuthService {
         return user;
       }
     }
-    throw new ForbiddenException('Invalid credentials');
+    return false;
   }
 
   async login({ email, password }: SignInDto) {
     const user = await this.validateUser(email, password);
 
     if (!user) {
-      return new NotFoundException('Invalid credentials');
+      throw new NotFoundException('Credenciais inválidas');
     }
 
     const userData: any = { ...user };
     delete userData.password;
 
     const token = this.jwtService.sign(
-      { sub: userData?.id, email: userData?.email },
+      { sub: userData?.id, email: userData?.email, avatar: userData?.avatar },
       { secret: process.env.JWT_SECRET }
     );
     return {

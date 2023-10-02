@@ -5,10 +5,28 @@
 
 ## 🚀 Tecnologias Utilizadas
 
+# Linguagens
+
 - Javascript / Typescript
-- Nest.js
-- TypeORM
+
+# Front-end Web
+
 - Next.js
 - React.js
+- Tailwind
+
+# Aplicativo Mobile
+
 - React Native
+- Expo
+- Native Base
+
+# Back-end
+
+- Nest.js
+- TypeORM
+
+
+
+
 

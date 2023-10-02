@@ -26,7 +26,7 @@ export class QuizService {
     roomId: string,
     payloadToken: PayloadTokenDto
   ): Promise<ResponseQuizDto> {
-    const author = await this.userService.getUserOrException(payloadToken.sub);
+    const author = await this.userService.findOne(payloadToken.sub);
     const room = await this.roomService.getRoomOrException(roomId);
 
     const quiz = this.quizRepository.create({

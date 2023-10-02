@@ -12,16 +12,17 @@ import { useEffect, useState } from "react";
 
 export function FeedbackStudents() {
   const [quizzes, setQuizzes] = useState<QuizzDTO[]>([]);
+  const { user } = useAuth();
   const toast = useToast();
   const navigation = useNavigation<PrivateNavigatorRoutesProps>();
-  const { user } = useAuth();
+  
 
   async function handleFeedbackQuiz(codigoQuiz: string) {
     navigation.navigate("feedback_quiz", { studentId: user.id, codigoQuiz: codigoQuiz });
   }
 
   function handleGoBack() {
-    return navigation.navigate('feedback');
+    return navigation.navigate('student');
   }
 
   async function listQuizzes() {
@@ -39,6 +40,14 @@ export function FeedbackStudents() {
         bgColor: "red.500",
       });
     }
+  }
+
+  async function handleDelete() {
+    console.log('DELETE');
+  }
+
+  async function handleEdit() {
+    console.log('EDIT');
   }
 
   useEffect(() => {
@@ -62,7 +71,10 @@ export function FeedbackStudents() {
           <QuizCard
             key={item.codigo}
             data={item}
-            onPress={() => handleFeedbackQuiz(item.codigo)}
+            variant="STUDENT"
+            onPress={() => handleFeedbackQuiz(item.codigo)} 
+            onDelete={handleDelete} 
+            onEdit={handleEdit}          
           />
         ))}
         </VStack>

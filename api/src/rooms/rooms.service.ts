@@ -8,6 +8,7 @@ import { QuizMapper } from 'src/quiz/quiz.mapper.service';
 import { ResponseQuizDto } from 'src/quiz/dto/response-quiz.dto';
 import { nanoid } from 'nanoid';
 import { PayloadTokenDto } from 'src/auth/dto/payload-token.dto';
+import { UpdateRoomDto } from './dto/update-room.dto';
 
 @Injectable()
 export class RoomsService {
@@ -66,5 +67,23 @@ export class RoomsService {
     }
 
     return room;
+  }
+
+  async update(id: string, updateRoomDto: UpdateRoomDto) {
+    const room = await this.roomRepository.findOne({
+      where: {
+        id
+      }
+    });
+    const roomUpdated = this.roomRepository.create({
+      ...room,
+      name: updateRoomDto.name
+    });
+
+    return this.roomRepository.save(roomUpdated);
+  }
+
+  async delete(id: string) {
+    return this.roomRepository.delete(id);
   }
 }

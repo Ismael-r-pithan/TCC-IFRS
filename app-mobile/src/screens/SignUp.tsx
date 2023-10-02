@@ -40,6 +40,7 @@ export function SignUp() {
             setIsLoading(true);
             await httpClient.post("/users", { username, email, password });
             handleGoBackSignIn();
+            
         } catch (error) {
             const isAppError = error instanceof AppError;
             const title = isAppError ? error.message : "Não foi possível criar a conta, Tente novamente mais tarde";
@@ -49,7 +50,7 @@ export function SignUp() {
                 backgroundColor: "red.500",
                 placement: "top"
             })
-        }
+        } 
     }
 
     return (
